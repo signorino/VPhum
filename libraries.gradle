@@ -1,0 +1,6 @@
+ext{
+    hikariVersion           =            '2.4.13'
+    libraries = [
+            hikariCP : "com.zaxxer:HikariCP-java7:${hikariVersion}"
+    ]
+}

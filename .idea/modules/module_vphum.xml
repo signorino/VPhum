@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_vphum" default="compile.module.vphum">
+  <dirname property="module.vphum.basedir" file="${ant.file.module_vphum}"/>
+  
+  <property name="module.jdk.home.vphum" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.vphum" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.vphum" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.vphum" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="vphum.output.dir" value="${module.vphum.basedir}/../../out/production/vphum"/>
+  <property name="vphum.testoutput.dir" value="${module.vphum.basedir}/../../out/test/vphum"/>
+  
+  <path id="vphum.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vphum.module.production.classpath">
+    <path refid="${module.jdk.classpath.vphum}"/>
+  </path>
+  
+  <path id="vphum.runtime.production.module.classpath">
+    <pathelement location="${vphum.output.dir}"/>
+  </path>
+  
+  <path id="vphum.module.classpath">
+    <path refid="${module.jdk.classpath.vphum}"/>
+    <pathelement location="${vphum.output.dir}"/>
+  </path>
+  
+  <path id="vphum.runtime.module.classpath">
+    <pathelement location="${vphum.testoutput.dir}"/>
+    <pathelement location="${vphum.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vphum">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vphum">
+    <patternset refid="excluded.from.module.vphum"/>
+  </patternset>
+  
+  
+  <target name="compile.module.vphum" depends="compile.module.vphum.production,compile.module.vphum.tests" description="Compile module vphum"/>
+  
+  <target name="compile.module.vphum.production" depends="register.custom.compilers" description="Compile module vphum; production classes"/>
+  
+  <target name="compile.module.vphum.tests" depends="register.custom.compilers,compile.module.vphum.production" description="compile module vphum; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.vphum" description="cleanup module">
+    <delete dir="${vphum.output.dir}"/>
+    <delete dir="${vphum.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_vphum_main" default="compile.module.vphum_main">
+  <dirname property="module.vphum_main.basedir" file="${ant.file.module_vphum_main}"/>
+  
+  <property name="module.jdk.home.vphum_main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.vphum_main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.vphum_main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.vphum_main" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="vphum_main.output.dir" value="${module.vphum_main.basedir}/../../build/classes/main"/>
+  <property name="vphum_main.testoutput.dir" value="${module.vphum_main.basedir}/../../build/classes/main"/>
+  
+  <path id="vphum_main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vphum_main.module.production.classpath">
+    <path refid="${module.jdk.classpath.vphum_main}"/>
+  </path>
+  
+  <path id="vphum_main.runtime.production.module.classpath">
+    <pathelement location="${vphum_main.output.dir}"/>
+  </path>
+  
+  <path id="vphum_main.module.classpath">
+    <path refid="${module.jdk.classpath.vphum_main}"/>
+    <pathelement location="${vphum_main.output.dir}"/>
+  </path>
+  
+  <path id="vphum_main.runtime.module.classpath">
+    <pathelement location="${vphum_main.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vphum_main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vphum_main">
+    <patternset refid="excluded.from.module.vphum_main"/>
+  </patternset>
+  
+  <path id="vphum_main.module.sourcepath">
+    <dirset dir="${module.vphum_main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.vphum_main" depends="compile.module.vphum_main.production,compile.module.vphum_main.tests" description="Compile module vphum_main"/>
+  
+  <target name="compile.module.vphum_main.production" depends="register.custom.compilers" description="Compile module vphum_main; production classes">
+    <mkdir dir="${vphum_main.output.dir}"/>
+    <javac2 destdir="${vphum_main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vphum_main}/javac">
+      <compilerarg line="${compiler.args.vphum_main}"/>
+      <bootclasspath refid="vphum_main.module.bootclasspath"/>
+      <classpath refid="vphum_main.module.production.classpath"/>
+      <src refid="vphum_main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vphum_main"/>
+    </javac2>
+    
+    <copy todir="${vphum_main.output.dir}">
+      <fileset dir="${module.vphum_main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.vphum_main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.vphum_main.tests" depends="register.custom.compilers,compile.module.vphum_main.production" description="compile module vphum_main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.vphum_main" description="cleanup module">
+    <delete dir="${vphum_main.output.dir}"/>
+    <delete dir="${vphum_main.testoutput.dir}"/>
+  </target>
+</project>

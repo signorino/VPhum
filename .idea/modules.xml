@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vphum.iml" filepath="$PROJECT_DIR$/.idea/modules/vphum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vphum_main.iml" filepath="$PROJECT_DIR$/.idea/modules/vphum_main.iml" group="vphum" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vphum_test.iml" filepath="$PROJECT_DIR$/.idea/modules/vphum_test.iml" group="vphum" />
+    </modules>
+  </component>
+</project>
