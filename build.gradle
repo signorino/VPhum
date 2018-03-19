@@ -7,7 +7,7 @@ sourceCompatibility = 1.5
 
 repositories {
     maven {
-        url "http://repo1.maven.org/maven2/"
+        url "http://repo1.maven.org/maven2"
     }
     mavenCentral()
 }
@@ -17,12 +17,32 @@ configurations {
 }
 
 dependencies {
-    compile()
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile(libraries.hikariCP)
+    compile(libraries.groovyAll)
+    compile(libraries.jstl)
+    compile(libraries.springAOP)
+    compile(libraries.springContext)
+    compile(libraries.springBeans)
+    compile(libraries.sringWeb)
+    compile(libraries.springWebmvc)
+    compile(libraries.springTx)
+    compile(libraries.springJdbc)
+    compile(libraries.springData)
+    compile(libraries.mysql)
+    compile(libraries.mybatisGenrator)
+    compile(libraries.mybatisSpring)
+    compile(libraries.mybatis)
+    compile(libraries.junit)
+    compile(libraries.commonsDbcp)
+    compile(libraries.aspectj)
+    compile(libraries.log4j)
+    compile(libraries.jmockit)
+    compile(libraries.logbackClassic)
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 
     mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.5'
     mybatisGenerator 'mysql:mysql-connector-java:5.1.40'
-    mybatisGenerator 'tk.mybatis:mapper:3.3.9'
+    mybatisGenerator 'tk.mybatis:mapper:3.4.4'
 }
 
 def getDbProperties = {

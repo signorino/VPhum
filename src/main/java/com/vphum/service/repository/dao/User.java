@@ -1,11 +1,11 @@
-package com.vphum.service.frontend.repository.dao;
+package com.vphum.service.repository.dao;
 
 public class User {
     private Long id;
 
     private String name;
 
-    private Integer phone;
+    private Long phone;
 
     private String sex;
 
@@ -25,11 +25,11 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getPhone() {
+    public Long getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(Long phone) {
         this.phone = phone;
     }
 
