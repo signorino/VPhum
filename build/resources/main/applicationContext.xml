@@ -13,18 +13,30 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:annotation-config />
     <context:component-scan base-package="com.vphum.service.**.service.*" />
     <context:component-scan base-package="com.vphum.service.common.*"/>
     <context:component-scan base-package="com.vphum.service.repository.*"/>
+    <context:component-scan base-package="com.vphum.service.repository.mapper.*"/>
+    <context:component-scan base-package="com.vphum.service.repository.dao.*"/>
 
     <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!--数据源-->
         <property name="dataSource" ref="dataSourceHikari" />
     </bean>
+
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="validationMessageSource" ref="messageSource"/>
+        <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
+        <!--不设置则默认为classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="validateMessageSource"/>
+    </bean>
+
+    <bean id="validateMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename">
+            <value>classpath:validateMessage.properties</value>
+         </property>
+        <property name="fileEncodings" value="utf-8"/>
+        <property name="cacheSeconds" value="120"/>
     </bean>
 
     <!--传播行为-->

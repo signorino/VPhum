@@ -12,8 +12,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
     <!-- 包扫描 -->
-    <context:component-scan base-package="com.vphum.service.frontend.controller,com.vphum.service.backend.controller" />
-
+    <context:annotation-config />
+    <context:component-scan base-package="com.vphum.service.**.controller.*" />
     <!--annotation driven-->
     <mvc:annotation-driven validator="validator">
         <mvc:argument-resolvers>

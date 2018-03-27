@@ -5,7 +5,9 @@
 
     <display-name>BusinessOnline</display-name>
     <description>Spring MVC web application</description>
-
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     <!-- For web context -->
     <servlet>
         <servlet-name>springmvc-dispatcher</servlet-name>
@@ -19,7 +21,7 @@
 
     <servlet-mapping>
         <servlet-name>springmvc-dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
 
