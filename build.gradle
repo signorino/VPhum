@@ -1,56 +1,81 @@
-group 'com.vphum.service'
 apply from: "./libraries.gradle"
-apply plugin: 'java'
-apply plugin: 'war'
+allprojects { project ->
+    group 'com.vphum.service'
+    apply plugin: 'java'
+    apply plugin: 'war'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    version = '1.0'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-sourceCompatibility = 1.5
+}
 
-repositories {
-    maven {
-        url "http://repo1.maven.org/maven2"
+configure(rootProject) {
+    apply plugin: 'build-dashboard'
+    task wrapper(type: Wrapper) {
+        gradleVersion = gradleVersion
+        distributionUrl = gradleDistributionUrlPrefix + "/gradle-"+gradleVersion+"-bin.zip"
+        description = "Generates gradlew[.bat] scripts"
     }
-    mavenCentral()
 }
 
-configurations {
-    mybatisGenerator
+subprojects {
+    repositories {
+        maven {
+            url "http://repo1.maven.org/maven2"
+        }
+        mavenCentral()
+
+    }
+    configurations {
+        mybatisGenerator
+    }
 }
 
-dependencies {
-    compile(libraries.hikariCP)
-    compile(libraries.groovyAll)
-    compile(libraries.jstl)
-    compile(libraries.springAOP)
-    compile(libraries.springContext)
-    compile(libraries.springBeans)
-    compile(libraries.sringWeb)
-    compile(libraries.springWebmvc)
-    compile(libraries.springTx)
-    compile(libraries.springJdbc)
-    compile(libraries.springData)
-    compile(libraries.mysql)
-    compile(libraries.mybatisGenerator)
-    compile(libraries.mybatisSpring)
-    compile(libraries.mybatis)
-    compile(libraries.junit)
-    compile(libraries.commonsDbcp)
-    compile(libraries.aspectj)
-    compile(libraries.log4j)
-    compile(libraries.mockitoAll)
-    compile(libraries.logbackClassic)
-    compile(libraries.validationApi)
-    compile(libraries.hibernateValidator)
-    //compile(libraries.elApi)
-    compile(libraries.jacksonDatabind)
-    compile(libraries.jspApi)
-    //compile(libraries.servletApi)
-    compile(libraries.jstlApi)
+project("vphum-service-api") {
+    description = "The service api module of vphum-service-api project"
+    apply from: "$rootDir/gradle/serviceApiProjects.gradle"
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
 
-    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.5'
-    mybatisGenerator 'mysql:mysql-connector-java:5.1.40'
-    mybatisGenerator 'tk.mybatis:mapper:3.4.4'
+project("vphum-service") {
+    description = "The service module of vphum-service project"
+    apply from: "$rootDir/gradle/serviceProjects.gradle"
+    dependencies {
+        compile(libraries.hikariCP)
+        compile(libraries.groovyAll)
+        compile(libraries.jstl)
+        compile(libraries.springAOP)
+        compile(libraries.springContext)
+        compile(libraries.springBeans)
+        compile(libraries.sringWeb)
+        compile(libraries.springWebmvc)
+        compile(libraries.springTx)
+        compile(libraries.springJdbc)
+        compile(libraries.springData)
+        compile(libraries.mysql)
+        compile(libraries.mybatisGenerator)
+        compile(libraries.mybatisSpring)
+        compile(libraries.mybatis)
+        compile(libraries.junit)
+        compile(libraries.commonsDbcp)
+        compile(libraries.aspectj)
+        compile(libraries.log4j)
+        compile(libraries.mockitoAll)
+        compile(libraries.logbackClassic)
+        compile(libraries.validationApi)
+        compile(libraries.hibernateValidator)
+        compile(libraries.jacksonDatabind)
+        compile(libraries.jspApi)
+        compile(libraries.jstlApi)
+
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+
+        mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.5'
+        mybatisGenerator 'mysql:mysql-connector-java:5.1.40'
+        mybatisGenerator 'tk.mybatis:mapper:3.4.4'
+    }
 }
 
 def getDbProperties = {

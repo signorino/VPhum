@@ -1,2 +1,4 @@
 rootProject.name = 'vphum'
+include 'vphum-service'
+include 'vphum-service-api'
 
